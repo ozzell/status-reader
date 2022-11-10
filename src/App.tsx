@@ -1,26 +1,57 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { FC, useState } from 'react'
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate
+} from 'react-router-dom'
+import IndexPage from 'modules/IndexPage'
+import PackageInfo from 'modules/PackageInfo'
 
-function App() {
+import './App.css'
+
+const App: FC = () => {
+  const [file, setFile] = useState<string | null>(null)
+  const [error, setError] = useState<DOMException | null>(null)
+
+  const handleFileInput = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    const inputFile = event.target.files?.[0]
+    const reader = new FileReader()
+
+    reader.onload = (event) => {
+      const result = event?.target?.result
+      if (result) setFile(result.toString())
+    }
+    reader.onerror = (event) => {
+      const error = event?.target?.error
+      if (error) setError(error)
+    }
+
+    if (inputFile) reader.readAsText(inputFile)
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Status Reader</h1>
+    <Router>
+      <Routes>
+        <Route path="packages/:name" element={<PackageInfo file={file} />} />
+        <Route
+          path="packages"
+          element={
+            <IndexPage file={file} handleFileInput={handleFileInput} error={error} />
+          }
+        />
+        <Route
+          path="/"
+          element={
+            <Navigate to="packages" replace />
+          }
+        />
+      </Routes>
+    </Router>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
