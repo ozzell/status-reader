@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import {
   BrowserRouter as Router,
   Routes,
@@ -10,9 +10,16 @@ import PackageInfo from 'modules/PackageInfo'
 
 import './App.css'
 
+const FILE_NAME = 'file'
+
 const App: FC = () => {
   const [file, setFile] = useState<string | null>(null)
   const [error, setError] = useState<DOMException | null>(null)
+
+  useEffect(() => {
+    const fileFromStorage = sessionStorage.getItem(FILE_NAME)
+    if (fileFromStorage) setFile(fileFromStorage)
+  }, [])
 
   const handleFileInput = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const inputFile = event.target.files?.[0]
@@ -20,7 +27,10 @@ const App: FC = () => {
 
     reader.onload = (event) => {
       const result = event?.target?.result
-      if (result) setFile(result.toString())
+      if (result) {
+        sessionStorage.setItem(FILE_NAME, result.toString())
+        setFile(result.toString())
+      }
     }
     reader.onerror = (event) => {
       const error = event?.target?.error
