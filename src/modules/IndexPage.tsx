@@ -2,12 +2,12 @@
 import React, { FC } from 'react'
 import FileUpload from 'components/FileUpload'
 import { Link } from 'react-router-dom'
+import { NEWLINE_REGEX } from 'utils/constants'
 
 // @TODO Maybe handle '#'
-// @TODO Take into account windows delimeters
 const getPackageNames = (file: string): string[] => {
   return file
-    .split('\n')
+    .split(NEWLINE_REGEX)
     .filter(line => line.toLowerCase().includes('package:'))
     .map(line => line.split(':')[1].trim())
     .filter(line => !!line)
