@@ -17,7 +17,7 @@ const IndexPage: FC<IndexPageProps> = ({ file, handleFileInput, error }) => {
 
   return (
     <div>
-      <h1>Index Page</h1>
+      <h2>Index Page</h2>
       <ul>
         {getPackageNames(file)
           .sort((a, b) => a.localeCompare(b))

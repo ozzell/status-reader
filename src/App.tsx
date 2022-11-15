@@ -41,26 +41,26 @@ const App: FC = () => {
   }
 
   return (
-    <div>
+    <div className="App">
       <h1>Status Reader</h1>
-    <Router>
-      <Routes>
-        <Route
-          path="packages/:name"
-          element={<PackageInfo file={file} />}
-        />
-        <Route
-          path="packages"
-          element={
-            <IndexPage file={file} handleFileInput={handleFileInput} error={error} />
-          }
-        />
-        <Route
-          path="/"
-          element={<Navigate to="packages" replace />}
-        />
-      </Routes>
-    </Router>
+      <Router>
+        <Routes>
+          <Route
+            path="packages/:name"
+            element={<PackageInfo file={file} />}
+          />
+          <Route
+            path="packages"
+            element={
+              <IndexPage file={file} handleFileInput={handleFileInput} error={error} />
+            }
+          />
+          <Route
+            path="/"
+            element={<Navigate to="packages" replace />}
+          />
+        </Routes>
+      </Router>
     </div>
   )
 }

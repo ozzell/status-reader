@@ -3,7 +3,6 @@ import { Link, useParams } from 'react-router-dom'
 import { DESC_FIELD } from 'utils/constants'
 import { getDepends, getDescription, getPackageNames, getReverseDepends, parseDepends } from 'utils/file-parsers'
 
-// @ TODO Add `back to index page´link
 const PackageInfo: FC<{ file: string | null }> = ({ file }) => {
   const { name: packageName } = useParams()
   const [showReverseDepends, setShowReverseDepends] = useState(false)
@@ -43,23 +42,31 @@ const PackageInfo: FC<{ file: string | null }> = ({ file }) => {
 
   return (
     <div>
-      <h1>{packageName}</h1>
+      <Link to="/">Index Page</Link>
+      <h2>Package: {packageName}</h2>
       <div>
-        <h2>Description</h2>
-        {descriptionUi}
+        <h3>Description</h3>
+        <p>{descriptionUi}</p>
       </div>
       <div>
-        <h2>Depends</h2>
+        <h3>Depends</h3>
         <ul>
           {depends ? dependsUi(depends, file) : <li>(This package has no dependencies)</li>}
         </ul>
       </div>
       <div>
-        <h2>Depended by</h2>
-        <button disabled={showReverseDepends} onClick={() => setShowReverseDepends(true)}>Load reverse dependencies</button>
-        {!showReverseDepends && <p>This may take a few seconds...</p>}
+        <h3>Depended by</h3>
+        {!showReverseDepends &&
+          <div>
+            <button onClick={() => setShowReverseDepends(true)}>Load reverse dependencies</button>
+            <p>This may take a few seconds...</p>
+          </div>
+         }
         <ul>
-        { reverseDepends ? dependsUi(reverseDepends, file) : !showReverseDepends ?? <li>(No packages dependent on this package)</li> }
+        {reverseDepends
+          ? dependsUi(reverseDepends, file)
+          : !showReverseDepends ?? <li>(No packages dependent on this package)</li>
+        }
         </ul>
       </div>
     </div>
