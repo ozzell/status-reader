@@ -1,17 +1,8 @@
 /* eslint-disable @typescript-eslint/no-base-to-string */
 import React, { FC } from 'react'
-import FileUpload from 'components/FileUpload'
 import { Link } from 'react-router-dom'
-import { NEWLINE_REGEX } from 'utils/constants'
-
-// @TODO Maybe handle '#'
-const getPackageNames = (file: string): string[] => {
-  return file
-    .split(NEWLINE_REGEX)
-    .filter(line => line.toLowerCase().includes('package:'))
-    .map(line => line.split(':')[1].trim())
-    .filter(line => !!line)
-}
+import FileUpload from 'components/FileUpload'
+import { getPackageNames } from 'utils/file-parsers'
 
 interface IndexPageProps {
   file: string | null

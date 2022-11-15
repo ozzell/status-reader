@@ -45,7 +45,10 @@ const App: FC = () => {
       <h1>Status Reader</h1>
     <Router>
       <Routes>
-        <Route path="packages/:name" element={<PackageInfo file={file} />} />
+        <Route
+          path="packages/:name"
+          element={<PackageInfo file={file} />}
+        />
         <Route
           path="packages"
           element={
@@ -54,9 +57,7 @@ const App: FC = () => {
         />
         <Route
           path="/"
-          element={
-            <Navigate to="packages" replace />
-          }
+          element={<Navigate to="packages" replace />}
         />
       </Routes>
     </Router>
