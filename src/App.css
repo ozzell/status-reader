@@ -24,3 +24,7 @@
 .App button:active {
   background-color: #264d8c;
 }
+
+.App .file-uploader-container {
+  line-height: 1.5;
+}

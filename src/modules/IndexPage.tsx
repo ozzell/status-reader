@@ -12,7 +12,10 @@ interface IndexPageProps {
 
 const IndexPage: FC<IndexPageProps> = ({ file, handleFileInput, error }) => {
   if (!file) {
-    return <FileUpload handleFileInput={handleFileInput} error={error} />
+    return <div className="file-uploader-container">
+      <label htmlFor="file-uploader">Upload a status file</label>
+      <FileUpload id="file-uploader" handleFileInput={handleFileInput} error={error} />
+    </div>
   }
 
   return (
