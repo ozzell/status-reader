@@ -1,9 +1,11 @@
-import { DESC_FIELD, NEWLINE_REGEX, NEW_PAR_REGEX } from './constants'
+import { DEPENDS_FIELD, DESC_FIELD, NEWLINE_REGEX, NEW_PAR_REGEX } from './constants'
 
-/** Throws forbidden-error up, which gets catched by ErrorBoundary */
+/** Throws error up, which gets catched in the ErrorBoundary */
 const forbiddenFirstChars = (line: string | undefined): boolean => {
   const firstChar = line?.trim().charAt(0)
-  if (firstChar === '#' || firstChar === '-') throw new Error('Reading file: Forbidden first character in field name ( # or - )')
+  if (firstChar === '#' || firstChar === '-') {
+    throw new Error('Reading file: Forbidden first character in field name ( # or - )')
+  }
   return true
 }
 
@@ -64,7 +66,7 @@ export const getDepends = (file: string, packageName: string): string | undefine
   if (selectedParagraph) {
     const depends = selectedParagraph
       .split(NEWLINE_REGEX)
-      .find(line => line.toLowerCase().includes('depends:'))
+      .find(line => line.toLowerCase().includes(DEPENDS_FIELD))
     forbiddenFirstChars(depends)
     return depends
   }
@@ -86,7 +88,10 @@ export const getReverseDepends = (file: string, packageName: string): string[] =
     .filter(name => name !== packageName)
     .filter(name => {
       const paragraph = getParagraph(file, name)
-      if (paragraph?.toLowerCase()?.includes('depends:') && paragraph?.toLowerCase()?.includes(packageName)) {
+      const dependsString = paragraph?.split('\n').find(p =>
+        p?.toLowerCase()?.includes(DEPENDS_FIELD) &&
+        p?.match(new RegExp(`[\\s+|\\s+,]${packageName}[\\s+|,\\s+]`, 'i')))
+      if (dependsString) {
         forbiddenFirstChars(paragraph)
         return true
       }

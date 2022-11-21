@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-base-to-string */
 import React, { FC } from 'react'
 import { Link } from 'react-router-dom'
 import FileUpload from 'components/FileUpload'

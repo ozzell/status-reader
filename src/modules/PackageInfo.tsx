@@ -10,7 +10,7 @@ const PackageInfo: FC<{ file: string | null }> = ({ file }) => {
   const splitAltDeps = useMemo(() => (dep: string, file: string): Array<JSX.Element | string> =>
     dep.split('|').map(altDep =>
       getPackageNames(file).includes(altDep)
-        ? <Link key={dep} onClick={() => setShowReverseDepends(false)} to={`/packages/${altDep}`}>{altDep}</Link>
+        ? <Link key={altDep} onClick={() => setShowReverseDepends(false)} to={`/packages/${altDep}`}>{altDep}</Link>
         : altDep
     ), [])
 
@@ -41,14 +41,15 @@ const PackageInfo: FC<{ file: string | null }> = ({ file }) => {
 
   return (
     <div>
-      <Link to="/">Index Page</Link>
+      <nav><Link to="/">Index Page</Link></nav>
       <h2>Package: {packageName}</h2>
       <div>
         <h3>Description</h3>
         <p>{descriptionUi}</p>
       </div>
       <div>
-        <h3>Depends</h3>
+        <h3>Depends on</h3>
+        <p>(Multiple packages on the same line refers to alternative dependencies)</p>
         <ul>
           {depends ? dependsUi(depends, file) : <li>(This package has no dependencies)</li>}
         </ul>
