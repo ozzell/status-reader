@@ -63,9 +63,8 @@ const PackageInfo: FC<{ file: string | null }> = ({ file }) => {
           </div>
          }
         <ul>
-        {reverseDepends
-          ? dependsUi(reverseDepends, file)
-          : !showReverseDepends ?? <li>(No packages dependent on this package)</li>
+        {reverseDepends &&
+          dependsUi(reverseDepends, file)
         }
         </ul>
       </div>

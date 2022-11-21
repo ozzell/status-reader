@@ -90,7 +90,7 @@ export const getReverseDepends = (file: string, packageName: string): string[] =
       const paragraph = getParagraph(file, name)
       const dependsString = paragraph?.split('\n').find(p =>
         p?.toLowerCase()?.includes(DEPENDS_FIELD) &&
-        p?.match(new RegExp(`[\\s+|\\s+,]${packageName}[\\s+|,\\s+]`, 'i')))
+        p?.match(new RegExp(`[\\s+|\\s+,]${packageName.replace(/\+/g, '\\+')}[\\s+|,\\s+]`, 'i')))
       if (dependsString) {
         forbiddenFirstChars(paragraph)
         return true
