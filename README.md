@@ -16,6 +16,8 @@ npm start
 
 Open the dev environment at [http://localhost:8080](http://localhost:8080)
 
+The application presents a file-upload input field. Upload a debian status file (status.real) using it.
+
 ## Other commands
 
 Running tests
