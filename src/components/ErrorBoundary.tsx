@@ -5,10 +5,14 @@ interface Props {
   children: React.ReactNode
 }
 
+interface ErrorProps {
+  error: { message: string }
+}
+
 class ErrorBoundary extends React.Component<Props> {
   state = { hasError: false, error: { message: '' } }
 
-  static getDerivedStateFromError (error: { message: string }): { hasError: boolean, error: { message: string } } {
+  static getDerivedStateFromError (error: ErrorProps): { hasError: boolean, error: ErrorProps } {
     return { hasError: true, error }
   }
 
