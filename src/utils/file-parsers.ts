@@ -81,7 +81,7 @@ export const parseDepends = (dependsString: string | undefined): string[] | null
     : null
 }
 
-export const getReverseDepends = (file: string, packageName: string): string[] | undefined => {
+export const getReverseDepends = (file: string, packageName: string): string[] => {
   return getPackageNames(file)
     .filter(name => name !== packageName)
     .filter(name => {

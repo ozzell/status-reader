@@ -10,13 +10,12 @@ const PackageInfo: FC<{ file: string | null }> = ({ file }) => {
   const splitAltDeps = useMemo(() => (dep: string, file: string): Array<JSX.Element | string> =>
     dep.split('|').map(altDep =>
       getPackageNames(file).includes(altDep)
-        ? <Link key={dep} onClick={() => setShowReverseDepends(false)} to={`/packages/${dep}`}>{altDep}</Link>
+        ? <Link key={dep} onClick={() => setShowReverseDepends(false)} to={`/packages/${altDep}`}>{altDep}</Link>
         : altDep
     ), [])
 
   const dependsUi = useMemo(() => (deps: string[] | null, file: string): JSX.Element[] | undefined =>
     deps?.map((dep, i) =>
-      // @ TODO Maybe add pipe to alternative deps
       <li key={`${dep}-${i}`}>{getPackageNames(file).includes(dep)
         ? <Link onClick={() => setShowReverseDepends(false)} to={`/packages/${dep}`}>{dep}</Link>
         : splitAltDeps(dep, file).map(d => typeof d === 'string' ? ` ${d} ` : d)}

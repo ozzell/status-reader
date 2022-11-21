@@ -2,12 +2,7 @@ import React from 'react'
 import { render, screen, within } from '@testing-library/react'
 import IndexPage from './IndexPage'
 import { BrowserRouter } from 'react-router-dom'
-
-const TEST_PACKAGE_NAME = 'package-1'
-const SECOND_TEST_PACKAGE_NAME = 'package-2'
-const FILE = `Package: ${TEST_PACKAGE_NAME}\nDescription: This package contains the Linux kernel image for version 3.2.0 on
- 64 bit x86 SMP.\nDepends: libc6 (>= 2.4)
-package:${SECOND_TEST_PACKAGE_NAME}\nDescription: descrition 2.\nDepends: initramfs-tools (>= 0.36ubuntu6), crda (>= 1.1.1-1ubuntu2) | wireless-crda`
+import { FILE, SECOND_TEST_PACKAGE_NAME, TEST_PACKAGE_NAME } from 'utils/test-utils'
 
 describe('IndexPage', () => {
   test('renders file-uploader when provided with ´null´-file', () => {
