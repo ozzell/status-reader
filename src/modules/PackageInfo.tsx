@@ -58,7 +58,7 @@ const PackageInfo: FC<{ file: string | null }> = ({ file }) => {
         <h3>Depended by</h3>
         {!showReverseDepends &&
           <div>
-            <button onClick={() => setShowReverseDepends(true)}>Load reverse dependencies</button>
+            <button data-testid="reverse-deps-btn" onClick={() => setShowReverseDepends(true)}>Load reverse dependencies</button>
             <p>This may take a few seconds...</p>
           </div>
          }

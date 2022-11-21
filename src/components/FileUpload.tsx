@@ -14,6 +14,7 @@ const FileUpload: FC<FileUploadProps> = ({ id, handleFileInput, error }) => {
         type="file"
         accept=".real, .txt"
         onChange={handleFileInput}
+        data-testid="file-uploader"
       />
       <div>
         {error?.toString()}
