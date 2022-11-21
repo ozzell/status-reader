@@ -9,8 +9,7 @@ import IndexPage from 'modules/IndexPage'
 import PackageInfo from 'modules/PackageInfo'
 
 import './App.css'
-
-const FILE_NAME = 'file'
+import { FILE_NAME } from 'utils/constants'
 
 const App: FC = () => {
   const [file, setFile] = useState<string | null>(null)
