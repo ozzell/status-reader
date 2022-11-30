@@ -86,15 +86,5 @@ export const parseDepends = (dependsString: string | undefined): string[] | null
 export const getReverseDepends = (file: string, packageName: string): string[] => {
   return getPackageNames(file)
     .filter(name => name !== packageName)
-    .filter(name => {
-      const paragraph = getParagraph(file, name)
-      const dependsString = paragraph?.split('\n').find(p =>
-        p?.toLowerCase()?.includes(DEPENDS_FIELD) &&
-        p?.match(new RegExp(`[\\s+|\\s+,]${packageName.replace(/\+/g, '\\+')}[\\s+|,\\s+]`, 'i')))
-      if (dependsString) {
-        forbiddenFirstChars(paragraph)
-        return true
-      }
-      return false
-    })
+    .filter(name => getDepends(file, name)?.match(new RegExp(`[\\s+|,\\s+]${packageName}`, 'i')))
 }

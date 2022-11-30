@@ -1,5 +1,5 @@
 import { getDepends, getDescription, getPackageNames, getReverseDepends } from './file-parsers'
-import { DEPENDS, DESCRIPTION_TEXT, FILE, SECOND_TEST_PACKAGE_NAME, TEST_PACKAGE_NAME } from './test-utils'
+import { DEPENDS, DESCRIPTION_TEXT, FILE, FILE2, FILE3, SECOND_TEST_PACKAGE_NAME, TEST_PACKAGE_NAME } from './test-utils'
 
 describe('file-parsers.ts', () => {
   describe('getPackageNames', () => {
@@ -39,14 +39,22 @@ describe('file-parsers.ts', () => {
   })
 
   describe('getReverseDepends', () => {
-    test('returns correct text as part of returned array', () => {
-      const depends = getReverseDepends(FILE, TEST_PACKAGE_NAME)
-      expect(depends).toContain(SECOND_TEST_PACKAGE_NAME)
-    })
     test('returns empty array when non-existing package-name given', () => {
       const depends = getReverseDepends(FILE, 'non-existing-package')
       expect(depends.length).toBe(0)
       expect(depends).toStrictEqual([])
+    })
+    test('returns correct text as part of returned array when it is encircled by whitespace on the left and , on the right', () => {
+      const depends = getReverseDepends(FILE, TEST_PACKAGE_NAME)
+      expect(depends).toContain(SECOND_TEST_PACKAGE_NAME)
+    })
+    test('returns correct package name as part of returned array when it is encircled by whitespace', () => {
+      const depends = getReverseDepends(FILE2, TEST_PACKAGE_NAME)
+      expect(depends).toContain(SECOND_TEST_PACKAGE_NAME)
+    })
+    test('returns correct package name as part of returned array when it is encircled by |-charcters', () => {
+      const depends = getReverseDepends(FILE3, TEST_PACKAGE_NAME)
+      expect(depends).toContain(SECOND_TEST_PACKAGE_NAME)
     })
   })
 })

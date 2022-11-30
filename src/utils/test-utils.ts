@@ -14,5 +14,10 @@ export const LONG_DESCRIPTION_TEXT = `query and manipulate user account informat
 export const DEPENDS_ARRAY = ['libc6', 'libkrb5support0']
 export const DEPENDS = `${DEPENDS_ARRAY[0]} (>= 2.14), ${DEPENDS_ARRAY[1]} (>= 1.7dfsg~beta2)`
 
+/** Different files have dependency in different locations to test parsing */
 export const FILE = `Package: ${TEST_PACKAGE_NAME}\nDescription: ${LONG_DESCRIPTION_TEXT}\nDepends: ${DEPENDS}\n
-package:${SECOND_TEST_PACKAGE_NAME}\nDescription: ${DESCRIPTION_TEXT} 2.\nDepends: ${TEST_PACKAGE_NAME}, initramfs-tools (>= 0.36ubuntu6), crda (>= 1.1.1-1ubuntu2) | wireless-crda`
+package:${SECOND_TEST_PACKAGE_NAME}\nDescription: ${DESCRIPTION_TEXT} 2.\nDepends: initramfs-tools (>= 0.36ubuntu6), ${TEST_PACKAGE_NAME}, crda (>= 1.1.1-1ubuntu2) | wireless-crda`
+export const FILE2 = `Package: ${TEST_PACKAGE_NAME}\nDescription: ${LONG_DESCRIPTION_TEXT}\nDepends: ${DEPENDS}\n
+package:${SECOND_TEST_PACKAGE_NAME}\nDescription: ${DESCRIPTION_TEXT} 2.\nDepends: initramfs-tools (>= 0.36ubuntu6) crda (>= 1.1.1-1ubuntu2) | wireless-crda  ${TEST_PACKAGE_NAME} `
+export const FILE3 = `Package: ${TEST_PACKAGE_NAME}\nDescription: ${LONG_DESCRIPTION_TEXT}\nDepends: ${DEPENDS}\n
+package:${SECOND_TEST_PACKAGE_NAME}\nDescription: ${DESCRIPTION_TEXT} 2.\nDepends: initramfs-tools (>= 0.36ubuntu6) | ${TEST_PACKAGE_NAME} | crda (>= 1.1.1-1ubuntu2) | wireless-crda`
